@@ -1,0 +1,10 @@
+steps:
+  # Build and tag using commit sha
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '.', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/run-image/custom-nginx:latest', '-f', 'Dockerfile']
+    dir: 'app'
+  # Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGION}-docker.pkg.dev/$PROJECT_ID/run-image/custom-nginx:latest']
+options:
+  logging: CLOUD_LOGGING_ONLY
